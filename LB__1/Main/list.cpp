@@ -128,98 +128,141 @@ void TList::deleteFromList(int poz) {
         _getch();
     }
 
-void TList::change(int num) {
-    int a = number();
-    int b;
-    if (num <= (number() - 1) && num > 0)
-		{
-			Data* temp1 = head;
-			Data* temp2 = head;
-			for (int i = 1; i < a; i++)
-			{
-				if ((i == num) && (num < a))
-				{
-					double aa = temp1->data;
-					temp1->data = temp1->next->data;
-					temp1->next->data = aa;
-				}
-				temp1 = temp1->next;
-			}
-		}
-    //Data* temp1 = head, * temp2 = head;
+    void TList::change(int num) {
+        int a = number();
 
-    //if (number() != num) {
 
-    //    for (int i = 0; i < num - 1; ++i)
-    //        temp1 = temp1->next;
+        if (num <= 0) {
+            system("cls");
+            cout << "Вы ввели число меньше нуля! Попробуйте ввести другое число!\n\nДля перехода в меню нажмите любую клавишу..." << endl;
+            _getch();
+            goto link1;
+        }
+        if (num > number()) {
+            system("cls");
+            cout << "Вы ввели число, больше чем задано в списке! Попробуйте ввести другое число!\n\nДля перехода в меню нажмите любую клавишу..." << endl;
+            _getch();
+            goto link1;
+        }
+        if (num <= number() && num > 0)
+        {
+            Data* temp1 = head;
+            Data* temp2 = temp1->next;
+            if (num == 1)
+            {
+                temp1 = head->next;
+                head->next = head->next->next;
+                head->next->prev = head;
+                temp1->next = head;
+                head->prev = temp1;
+                head = temp1;
+            }
+            else if (num == number())
+            {
+                temp1 = head; temp2 = tail;
+                temp2->next = temp1->next;
+                temp1->next->prev = temp2;
+                temp2->prev->next = temp1;
+                temp1->prev = temp2->prev;
+                head = temp2;
+                head->prev = NULL;
+                tail = temp1;
+                tail->next = NULL;
+            }
+            else
+            {
+                for (int i = 1; i < number(); i++)
+                {
+                    if (i == num)
+                    {
+                        if (temp1->next == tail)
+                        {
+                            tail->prev = temp1->prev;
+                            temp1->prev->next = tail;
+                            tail->next = temp1;
+                            temp1->prev = tail;
+                            temp1->next = NULL;
+                            tail = temp1;
 
-    //    for (int i = 0; i < num; ++i)
-    //        temp2 = temp2->next;
-    //}
-    //else {
-    //    for (int i = 0; i < num; ++i)
-    //        temp1 = temp1->next;
-
-    //    for (int i = 0; i < num; ++i)
-    //        temp2 = temp2->next;
-    //}
-    //if (temp1 == head && temp2 == tail) { // åñëè ñïèñîê èç äâóõ åëåìåíòîâ
-
-    //    temp1->next = NULL;
-    //    temp2->next = temp1;
-    //    temp1->prev = temp2;
-    //    temp2->prev = NULL;
-    //    head = temp2;
-    //    tail = temp1;
-    //    return;
-
-    //}
-    ////if (temp1 == tail && temp2 == head) { // åñëè ñïèñîê èç äâóõ åëåìåíòîâ
-
-    ////    temp2->next = NULL;
-    ////    temp1->next = temp2;
-    ////    temp2->prev = temp1;
-    ////    temp1->prev = NULL;
-    ////    head = temp1;
-    ////    tail = temp2;
-    ////    return;
-
-    ////}
-
-    //if (temp1->prev == NULL) { // åñëè äâà ïåðâûõ åëåìåíòà
-
-    //    temp2->next->prev = temp1;
-
-    //    temp1->next = temp2->next;
-    //    temp2->next = temp1;
-    //    temp1->prev = temp2;
-    //    temp2->prev = NULL;
-    //    head = temp2;
-    //    return;
-    //}
-
-    //if (temp2->next == NULL) { // åñëè äâà ïîñëåäíèõ åëåìåíòà
-    //    temp1->prev->next = temp2;
-
-    //    temp2->prev = temp1->prev;
-    //    temp2->next = temp1;
-    //    temp1->prev = temp2;
-    //    temp1->next = NULL;
-    //    tail = temp1;
-
-    //    return;
+                        }
+                        else
+                        {
+                            temp1->prev->next = temp2;
+                            temp2->prev = temp1->prev;
+                            temp2->next->prev = temp1;
+                            temp1->next = temp2->next;
+                            temp1->prev = temp2;
+                            temp2->next = temp1;
+                        }
+                    }
+                    temp1 = temp1->next;
+                }
+            }
+        }
+        TList::show();
+        _getch();
+        system("cls");
+        cout << "Успех! Данные списка были поменяны местами!\n\nДля перехода в меню нажмите любую клавишу..." << endl;
+        _getch();
+    link1:;
     }
 
-    /*else {
-        temp1->prev->next = temp2;
-        temp2->next->prev = temp1;
+    void TList::addition(TList& LIST) {
 
-        temp1->next = temp2->next;
-        temp2->next = temp1;
+        Data* temp = LIST.head;
 
-        temp2->prev = temp1->prev;
-        temp1->prev = temp2;
+        while (temp) {
+            this->Add(temp->data);
+            temp = temp->next;
 
-        return;
-    }*/
+        }
+        LIST.~TList();
+    }
 
+    void TList::save() {
+        Data* temp = head;
+
+        fstream f("Data_List.txt", ios::out);
+        if (!f.is_open())
+            cout << "Ошибка! Файл не найден!";
+        else {
+            while (temp) {
+                f << temp->data << '\t';
+                temp = temp->next;
+            }
+        }
+
+    }
+
+    void TList::in(double s) {
+        Data* temp = new Data;
+        temp->next = NULL;
+        temp->data = s;
+        if (head)
+        {
+            temp->prev = tail;
+            tail->next = temp;
+            tail = temp;
+        }
+        else
+        {
+            temp->prev = NULL;
+            head = tail = temp;
+        }
+        
+    }
+
+    void TList::form_the_file() {
+        fstream f("Data_List.txt", ios::in);
+        if (!f.is_open())
+            cout << "Ошибка! Файл не найден!";
+        else {
+            double s;
+            while (f >> s)
+            {
+                in(s);
+            }
+            f.close();
+
+        }
+    }

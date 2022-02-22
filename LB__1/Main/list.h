@@ -34,5 +34,9 @@ public:
 	short number();
 	void deleteFromList(int poz);
 	void change(int num);
+	void addition(TList& LIST);
+	void save();
+	void form_the_file();
+	void in(double s);
 
 };
