@@ -38,7 +38,7 @@ int main(void) {
 			cin >> num;
 
 			lst.create(num);
-			lst.show();
+			lst.show(lst.Count());
 			cout << "Для продолжения нажмите любую клавишу...";
 			_getch();
 
@@ -54,7 +54,7 @@ int main(void) {
 				cout << "Вывод списка |" << endl;
 				cout << "-------------|\n\n";
 
-				lst.show();
+				lst.show(lst.Count());
 				cout << "Для продолжения нажмите любую клавишу...";
 				_getch();
 
@@ -87,15 +87,15 @@ int main(void) {
 				cout << "Удаление элемента списка |" << endl;
 				cout << "-------------------------|\n\n";
 
-				lst.show();
+				lst.show(lst.Count());
 
 				cout << "\nВведите номер удаляемого элемента -> ";
 				cin >> num;
 				lst.deleteFromList(num);
 
-				system("cls");
+				/*system("cls");
 				cout << "Успех! Удаление элемента было выполнено!\n\nДля перехода в меню нажмите любую клавишу..." << endl;
-				_getch();
+				_getch();*/
 				system("cls");
 			}
 			break;
@@ -105,7 +105,7 @@ int main(void) {
 				system("cls");
 				cout << "Узнать кол-во элементов в списке |" << endl;
 				cout << "---------------------------------|\n\n";
-				num = lst.number();
+				num = lst.number(lst.Count());
 
 				if ((num % 10 > 4) || (num % 10 == 0) || (num % 100 == 11) || (num % 100 == 12) || (num % 100 == 13) || (num % 100 == 14))
 				{
@@ -137,7 +137,7 @@ int main(void) {
 				system("cls");
 				cout << "Поменять местами два соседних элемента |" << endl;
 				cout << "---------------------------------------|\n\n";
-				cout << "Исходный список - > "; lst.show();
+				cout << "Исходный список - > "; lst.show(lst.Count());
 				cout << endl;
 				cout << "Введите номер элемента списка -> ";
 				cin >> num;
@@ -155,7 +155,7 @@ int main(void) {
 				cin >> num;
 				LST.create(num);
 				lst.addition(LST);
-				lst.show();
+				lst.show(lst.Count());
 				_getch();
 
 				system("cls");
