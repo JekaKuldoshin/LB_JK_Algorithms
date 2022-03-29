@@ -1,6 +1,6 @@
 #include "list.h"
 
-TList::~TList() {
+TList::~TList() {                              //\\//\\ КпоУ //\\//\\
 
     while (head != tail)                //Пока размерность списка не станет нулевой
     {
@@ -12,11 +12,11 @@ TList::~TList() {
     size = 0;
 }
 
-int TList::Count() {                //Функ-я возвращающая число элементов
+int TList::Count() {               //\\//\\ Функ-я возвращающая число элементов //\\//\\ 
     return size; 
 }
 
-bool TList::check() {
+bool TList::check() {             //\\//\\ Функ-я проверки на наличие элементов списка //\\//\\ 
     if (head == NULL) {
         system("cls");
         cout << "Ошибка! Список отсутствует!!!\n\nНажмите на Enter чтобы продолжить...";
@@ -24,80 +24,79 @@ bool TList::check() {
         return false;
     }
     else
-        return true;
+        return true;       //Если возврашает True, то мы можем пользоваться всем функционалом программы
 }
 
-void TList::Add(double d)
+void TList::Add(double d)         //\\//\\ Функ-я для добавления данных в конец списка //\\//\\ 
 {
     size++;                        //При каждом добавлении элемента увеличиваем число элемента 
     Data* temp = new Data;        //Выделяем память для нового элемента списка
     temp->next = head;           //Замыкание контура. Последний элемент - это начало списка
     temp->data = d;             //Записываем в выделенную ячейку памяти значения data
 
-    if (head != NULL)         //В том случае если списко не пустой
+    if (head != NULL)         //В том случае если список не пустой
     {
         tail->next = temp;
         tail = temp;
     }
-    else                   //Если списко пуст создаме первый элемент
+    else                   //Если список пуст создаем первый элемент
     {
         head = tail = temp;
     }
 }
 
-void TList::create(int num) {
-    int a = 1;
-    double d;
+void TList::create(int num) {          //\\//\\ Функ-я для создания списка //\\//\\ 
+    int a = 1;         //Счеткик элементов
+    double d;         //Переменная для ввода
     for (int i = 0; i < num; i++) {
         cout << "Введите данные для " << a++ << " ячейки (double)-> ";
         cin >> d;
-        Add(d);
+        Add(d);         //Переход в функ-ю добавления элементов в конец списка
     }
     a = 0;
     system("cls");
 }
 
-void TList::show(int temp)
+void TList::show(int temp)                    //\\//\\ Функ-я вывода //\\//\\ 
 {
-
     Data* tempHead = head;
     temp = size;
     cout << "Данные списка -> ";
-    while (temp != 0)
+    while (temp != 0)                           //Пока не будет ровно нулю
     {
-        cout << tempHead->data << " ";
-        tempHead = tempHead->next;
-        temp--;
+        cout << tempHead->data << " ";        //Выводим данные через пробел
+        tempHead = tempHead->next;           //Смена адреса следующего элемента
+        temp--;                             //Уменьшаем размер 
     }
     cout << "\n" << "\n";
 }
 
-short TList::number(int temp) {
+short TList::number(int temp) {               //\\//\\ Функ-я для нахождения кол-ва элементов списка //\\//\\
 
-    short number = 0;
-    Data* tempHead = head;
+    short number = 0;                            //Переменная для подсчета кол-ва
+    Data* tempHead = head;                      //Ставим на начало
     temp = size;
-    while (temp != 0)
+    while (temp != 0)                         //Цикл пока не будет равно нулю
     {
-        number++;
-        tempHead = tempHead->next;
-        temp--;
+        number++;                           //Счетчик для подсчета кол-ва элементов списка
+        tempHead = tempHead->next;         //Смена адреса следующего элемента
+        temp--;                           //Уменьшаем размер
     }
     return number;
 }
 
-void TList::deleteFromList(int poz) {
+void TList::deleteFromList(int poz) {                  //\\//\\ Функ-я удаления //\\//\\
 
-    if (head != NULL) {
-        Data* temp = tail;
+    if (head != NULL) {                     //Если список не пуст
+        Data* temp = tail;                 
         size--;
-        for (int i = 1; i < poz; i++)//temp уже указывает на следующий элемент, поэтому количество итераций -1
-            temp = temp->next;
-        Data* buf = temp->next;
-        if (buf == head) head = buf->next;
-        if (buf == tail) tail = temp;
+        for (int i = 1; i < poz; i++)              //temp уже указывает на следующий элемент, поэтому количество итераций -1
+            temp = temp->next;                    //Смена адреса следующего элемента
+        Data* buf = temp->next;                  //Смена адреса следующего элемента Буферной переменной
+        if (buf == head) head = buf->next;      //Если Выбранный элемент равняется Началу, передвигаем на следующий элемент
+        if (buf == tail) tail = temp;          //Если Выбранный элемент равняется концу
         temp->next = buf->next;
-        delete buf;
+        delete buf;                         //После всех сдигов удаляем
         }
 
         system("cls");
@@ -105,11 +104,9 @@ void TList::deleteFromList(int poz) {
         _getch();
     }
 
-void TList::change(int num) {
+void TList::change(int num) {                      //\\//\\ Смена соседних значений //\\//\\
     
-
-
-    if (num <= 0) {
+    if (num <= 0) {             //Проверка на ввод
         system("cls");
         cout << "Вы ввели число меньше нуля! Попробуйте ввести другое число!\n\nДля перехода в меню нажмите любую клавишу..." << endl;
         _getch();
@@ -121,38 +118,36 @@ void TList::change(int num) {
         _getch();
         goto link1;
     }
-    if (num <= size && num > 0)
+    if (num <= size && num > 0)             //Проверка на ввод
     {
-        Data* temp1 = head;
-        Data* temp2 = head;
-        if (num == 1)
+        if (num == 1)      //Если совпадает с началом
         {
-            double a = head->data;
-           head->data = head->next->data;
-            head->next->data = a;
+            double a = head->data;                 //Переносим данные в переменную
+           head->data = head->next->data;         //Смещаем на одну позицию вперед
+            head->next->data = a;                //Заменяем на данные с переменной
         }
-        else if (num == size)
+        else if (num == size)  //Если совпадает с концом
         {
-            double a = head->data;
-            head->data = tail->data;
-            tail->data = a;
+            double a = head->data;            //Переносим данные в переменную
+            head->data = tail->data;         //Смещаем на одну позицию на конец
+            tail->data = a;                 //Конечную меняем на переменную
         }
-        else
+        else    //Если середина между началом и концом
         {
-            Data* tmp = head->next;
-            for (int i = 2; i < size; i++)
+            Data* tmp = head->next;             //Переменная с переходом на следующий элемент
+            for (int i = 2; i < size; i++)     //Начинаем с второго элемента, так как мы уже обработали первый и последний элемент
             {
-                if (num == i)
+                if (num == i)                         //Нахождение нужной позиции для обмена данных
                 {
-                    double a = tmp->data;
-                    tmp->data = tmp->next->data;
-                    tmp->next->data = a;
+                    double a = tmp->data;           //Переносим данные в переменную
+                    tmp->data = tmp->next->data;   //Смещаем на одну позицию вперед
+                    tmp->next->data = a;          //Заменяем на данные с переменной
                 }
-                tmp = tmp->next;
+                tmp = tmp->next;                //Переход к следующему значению
             }
         }
     }
-    TList::show(size);
+    TList::show(size);             //Функ-я вывода
     _getch();
     system("cls");
     cout << "Успех! Данные списка были поменяны местами!\n\nДля перехода в меню нажмите любую клавишу..." << endl;
@@ -160,63 +155,63 @@ void TList::change(int num) {
 link1:;
 }
 
-void TList::addition(TList& LIST) {
+void TList::addition(TList& LIST) {            //\\//\\ Функ-я обьединения двух списков //\\//\\ 
 
-    Data* temp = LIST.head;
+    Data* temp = LIST.head;                  //Создали переменную для работы с вторым списком, поставили на начало
 
-    for(int i = 0; i<LIST.Count();i++){
-        this->Add(temp->data);
-        if (temp->next != LIST.head)
+    for(int i = 0; i<LIST.Count();i++){    //Исходя из размера списка будет работать цикл
+        this->Add(temp->data);            //Заходим в функ-ю доб. в конец и передаем значения списка №2
+        if (temp->next != LIST.head)     //Переходим вперед пока не дойдем до начала
         {
-            temp = temp->next;
+            temp = temp->next;         //Шаг вперед
         }
     }
-    LIST.~TList();
+    LIST.~TList();                  //КпУ список №2, обнулили
 }
 
-void TList::save() {
-    Data* temp = head;
+void TList::save() {                                   //\\//\\ Функ-я сохранения в файл //\\//\\ 
+    Data* temp = head;          //Поставили на начало
 
-    fstream f("Data_List.txt", ios::out);
-    if (!f.is_open())
+    fstream f("Data_List.txt", ios::out);          //Создали переменную для работы с файлом, создали файл.
+    if (!f.is_open())                             //Проверка на открытие файла
         cout << "Ошибка! Файл не найден!";
     else {
-        do {
-            f << temp->data << '\t';
-            temp = temp->next;
-        } while (temp != head);
+        do {                                    //Цикл пока не дойдем до конца
+            f << temp->data << '\t';           //Запись данных списка в файл
+            temp = temp->next;                //Шаг вперед
+        } while (temp != head);              //Пока не дойдем до начала
     }
 
 }
 
-void TList::in(double s) {
-    Data* temp = new Data;
-    temp->data = s;
-    if (head)
+void TList::in(double s) {                       //\\//\\ Функ-я для работы  с чтением с файла //\\//\\ 
+    Data* temp = new Data;                //Выделяем память для нового элемента списка
+    temp->data = s;                      //Переносим с переменной файла в переменную класса 
+    if (head)                           //Если это первый элемент
     {
-        temp->prev = tail;
-        tail->next = temp;
-        tail = temp;
+        temp->prev = tail;            //Зациклили
+        tail->next = temp;           //Переход к следующему 
+        tail = temp;                //Подставили данные
     }
     else
     {
         temp->prev = NULL;
         head = tail = temp;
     }
-    size++;
+    size++;                     //Добавляем размер списка в класс
 }
 
-void TList::form_the_file() {
-    fstream f("Data_List.txt", ios::in);
-    if (!f.is_open())
+void TList::form_the_file() {                        //\\//\\ Функ-я чтения с файла //\\//\\ 
+    fstream f("Data_List.txt", ios::in);         //Переменная для работы с файлом, открыли файл
+    if (!f.is_open())                           //Проверка на открытие файла
         cout << "Ошибка! Файл не найден!";
     else {
-        double s;
-        while (f >> s)
+        double s;                            //Переменная для заполнения с файла
+        while (f >> s)                      //Ввод
         {
-            in(s);
+            in(s);                        //Вход в функцию
         }
-        f.close();
+        f.close();                      //Закрыли файл
 
     }
 }
