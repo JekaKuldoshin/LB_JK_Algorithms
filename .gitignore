@@ -352,3 +352,5 @@ healthchecksdb
 /LB__2/LB__2.cpp
 /LB__2/Stack/Stack.vcxproj.filters
 /LB__2/Stack/Stack.vcxproj
+/LB__2/Queue/Queue.vcxproj.filters
+/LB__2/Queue/Queue.vcxproj
