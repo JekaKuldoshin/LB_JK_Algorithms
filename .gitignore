@@ -345,3 +345,8 @@ healthchecksdb
 /LB__1/LB__1.vcxproj
 /LB__1/Main_RingList/Main_RingList.vcxproj.filters
 /LB__1/Main_RingList/Main_RingList.vcxproj
+/LB__2/Main/Main.vcxproj.filters
+/LB__2/Main/Main.vcxproj
+/LB__2/LB__2.vcxproj.filters
+/LB__2/LB__2.vcxproj
+/LB__2/LB__2.cpp
