@@ -24,91 +24,91 @@ void queue::create(int num) {       //\\//\\ Функ-я для создания списка //\\//\\
 }
 
 void queue::Add(char a) {
-    obj* temp = new obj;
-    temp->data = a;
-    if (!first) {
-        first = temp;
-        tail = first;
+    obj* temp = new obj;             //Создаем указатель
+    temp->data = a;                 //Данные переносим в data
+    if (!first) {                  //Если не первый элемент
+        first = temp;             //Передаем данные на первое место
+        tail = first;            //Соединили
     }
-    else {
-        tail->prev = temp;
-        tail = temp;
+    else {                     //Если уже были данные в очереди
+        tail->prev = temp;    //В конец записываем данные
+        tail = temp;         //Данные в конце
     }
-    temp->prev = NULL;
+    temp->prev = NULL;     //Очистили переменную
 }
 
 void queue::show()             //\\//\\ Функ-я для вывода стека //\\//\\ 
 {
-	obj* temp = first;
+	obj* temp = first;                  //Создали указатель и поставили с начала
 	cout << "Очередь: ";
-	while (temp) {
-		cout << temp->data << " ";
-		temp = temp->prev;
+	while (temp) {                    //Цикл пока не закончатся данные
+		cout << temp->data << " ";   //Выводим через пробел
+		temp = temp->prev;          //Переводим указатель на следующий элемент
 	}
 	cout << endl;
 	cout << "\nДля продолжения нажмите любую клавишу...";
 	_getch();
 }
 
-int queue::count()
+int queue::count()            //\\//\\ Функ-я подсчета кол-ва элементов в очереди //\\//\\ 
 {
-	int count = 0;
-	obj* temp = first;
-	while (temp) {
-		count++;
-		temp = temp->prev;
+	int count = 0;             //Переменная для подсчета кол-ва
+	obj* temp = first;        //Указатель на начало
+	while (temp) {           //Цикл пока не закончатся данные
+		count++;            //+1
+		temp = temp->prev; //Перевод указателя на следуюший элемент
 	}
-	return count;
+	return count;        //Возвращаем значение
 }
 
-double queue::average()
+double queue::average()     //\\//\\ Функ-я для нахождения среднего ариметического //\\//\\ 
 {
-	char avarage = ' ';
-	obj* temp = first;
-	while (temp) {
-		avarage += temp->data;
-		temp = temp->prev;
+	char avarage = ' ';                  
+	obj* temp = first;                 //Указатель на начало очереди
+	while (temp) {                    //Цикл пока не закончатся данные
+		avarage += temp->data;       //Накопление переменной
+		temp = temp->prev;          //Переход на следуюший элемент
 	}
-	return avarage / count();
+	return avarage / count();     //При возврашении делим на кол-во для нахождение среднего арифметического
 }
 
-char queue::Max()
+char queue::Max()                  //\\//\\ Функ-я для нахождения Макс. //\\//\\ 
 {
-	char max = first->data;
-	obj* temp = first->prev;
-	while (temp) {
-		if (max < temp->data)
-			max = temp->data;
-		temp = temp->prev;
+	char max = first->data;              //Изночально ставим первый элемент как максимальный
+	obj* temp = first->prev;            //Переводим на следуюший элемент для дальнейшего сравнения
+	while (temp) {                     //Цикл пока не закончатся данные
+		if (max < temp->data)         //Если Макс < елемента, меняем
+			max = temp->data;        //Присвоение
+		temp = temp->prev;          //Переход к следуюшему елементу
 	}
 
-	return max;
+	return max;                  //Возвращаем переменную
 }
 
-char queue::Min()
+char queue::Min()            //\\//\\ Функ-я для нахождения минимального элемента //\\//\\ 
 {
-	char min = first->data;
-	obj* temp = first->prev;
-	while (temp) {
-		if (min > temp->data)
-			min = temp->data;
-		temp = temp->prev;
+	char min = first->data;          //Изночально ставим первый элемент как мин.
+	obj* temp = first->prev;        //Переводим на следуюший элемент для дальнейшего сравнения
+	while (temp) {                 //Цикл пока не закончатся данные
+		if (min > temp->data)     //Если Мин > елемента, меняем
+			min = temp->data;    //Присвоение
+		temp = temp->prev;      //Переход к следуюшему елементу
 	}
 
-	return min;
+	return min;              //Возвращаем переменную
 }
 
-char queue::prevMin()
+char queue::prevMin()            //\\//\\ Функ-я для нахождения элемента который стоит после минимального //\\//\\ 
 {
-	char prevMin;
-	obj* temp = first;
-	if (Min() == first->data)
-		return Min();
-	while (temp) {
+	char prevMin;                          //Переменная
+	obj* temp = first;                    //Указатель на начало
+	if (Min() == first->data)            //Если минимальное число является началом, тогда просто выводим Минимальный элемент
+		return Min();                   //Возвращаем переменную
+	while (temp) {                              //Цикл пока не закончатся данные
 
-		if (temp->prev->data == Min())
-			return temp->data;
-		temp = temp->prev;
+		if (temp->prev->data == Min())         //Если приравнивается у минимуму, делаем шаг назад и -> 
+			return temp->data;                //Возвращаем переменную
+		temp = temp->prev;                   //ШАГ ВПЕРЕД для цикла
 	}
 
 }
@@ -138,7 +138,7 @@ void queue::form_the_file() {                   //\\//\\ Функ-я чтения с файла /
 	else {
 		while (f >> a) {
 			if (a != ' ')
-				Add(a);
+				Add(a);               //Обрашаемся к функ-ии
 		}
 	}
 	f.close();                 //Закрыли файл
