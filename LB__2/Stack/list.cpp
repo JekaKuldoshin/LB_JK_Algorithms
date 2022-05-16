@@ -133,7 +133,7 @@ void stack::reverse()                    //\\//\\ Функ-я переворачивания стека /
 		count++;                        //Подсчет
 		temp = temp->next;             //Переход
 	}
-	short* arr = new short[count];               //Создали массив с кол-вом элементов стека
+	char* arr = new char[count];               //Создали массив с кол-вом элементов стека
 	for (short i = 0; i < count; i++)           
 		arr[i] = pull();                       //Вытягиваем со стека
 	for (short i = 0; i < count; i++)
