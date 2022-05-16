@@ -354,3 +354,5 @@ healthchecksdb
 /LB__2/Stack/Stack.vcxproj
 /LB__2/Queue/Queue.vcxproj.filters
 /LB__2/Queue/Queue.vcxproj
+/LB__2/Deque/Deque.vcxproj.filters
+/LB__2/Deque/Deque.vcxproj
