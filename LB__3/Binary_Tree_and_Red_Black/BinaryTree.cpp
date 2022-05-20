@@ -12,6 +12,22 @@ Tree::Tree() {
 	count = tabs = 0;
 }
 
+bool Tree::check() {
+	RBTree root;
+	if (Root == NULL)
+	{
+		system("cls");
+		cout << "Ошибка! Бинарное дерево отсутствует!!!\n\nНажмите на Enter чтобы продолжить...";
+		_getch();
+		return false;
+	}
+	else
+	{
+		return true;             //Если возврашает True, то мы можем пользоваться всем функционалом программы
+	}
+
+}
+
 void Tree::add(string name, int y, int n) {
 	Node* temp = new Node(name, y, n);
 	Node* ptr, * ptr1;
@@ -50,7 +66,7 @@ void Tree::add(string name, int y, int n) {
 
 }
 
- void Tree::addByNum(Node* node) {
+ void Tree::add_by_year(Node* node) {
 	 Node* temp = new Node(node->name, node->year, node->num);
 	 Node* ptr, * ptr1;
 	 ptr = ptr1 = Root;
@@ -85,9 +101,9 @@ void Tree::add(string name, int y, int n) {
 	 count++;
  }
 
- void Tree::addByN(string name, int num, int g) {
-	 Node* n = new Node(name, num, g);
-	 addByNum(n);
+ void Tree::add_by_y(string name, int y, int n) {
+	 Node* node = new Node(name, y, n);
+	 add_by_year(node);
  }
 
  void Tree::showForward(Node* n) {
@@ -132,49 +148,33 @@ void Tree::add(string name, int y, int n) {
  }
 
  void Tree::show() {
-	 if (Root)
-	 {
-		 
+
 		 showForward(Root);
 		 cout << "";
 		 cout << "\n\nНажмите на Enter чтобы продолжить...";
 		 _getch();
-	 }
-	 else
-	 {
-		 cout << "Ошибка! Бинарное дерево отсутствует!!!\n\nНажмите на Enter чтобы продолжить...";
-	 }
  }
 
  void Tree::showPreOrder() {
 	 system("cls");
-	 if (Root) {
-		 cout << "Печать при прямом обходе |" << endl;
-		 cout << "-------------------------|\n\n";
-		 showF(Root);
-	 }
-	 else
-		 cout << "Ошибка! Бинарное дерево отсутствует!!!\n\nНажмите на Enter чтобы продолжить...";
+
+	 cout << "Печать при прямом обходе |" << endl;
+	 cout << "-------------------------|\n\n";
+	 showF(Root);
  }
 
  void Tree::showPostOrder() {
-	 if (Root) {
+	 system("cls");
 		 cout << "Печать при обратном обходе |" << endl;
 		 cout << "---------------------------|\n\n";
 		 showBackward(Root);
-	 }
-	 else
-		 cout << "Ошибка! Бинарное дерево отсутствует!!!\n\nНажмите на Enter чтобы продолжить...";
- }
+}
 
  void Tree::showSymm() {
-	 if (Root) {
-		 cout << "Печать при симетричном обходе |" << endl;
-		 cout << "------------------------------|\n\n";
-		 showSymmetrically(Root);
-	 }
-	 else
-		 cout << "Ошибка! Бинарное дерево отсутствует!!!\n\nНажмите на Enter чтобы продолжить...";
+	 system("cls");
+	 cout << "Печать при симетричном обходе |" << endl;
+	 cout << "------------------------------|\n\n";
+	 showSymmetrically(Root);
  }
 
  void Tree::delLeft(Node* n) {
@@ -194,8 +194,7 @@ void Tree::add(string name, int y, int n) {
 	 {
 		 delLeft(Root->Left);
 	 }
-	 cout << "Успех! Удаление левого поддерева было выполнено!\n\nДля перехода в меню нажмите любую клавишу..." << endl;
-	 _getch();
+	
  }
 
  void Tree::delRight(Node* n) {
@@ -215,8 +214,8 @@ void Tree::add(string name, int y, int n) {
 	 {
 		 delRight(Root->Right);
 	 }
-	 cout << "Успех! Удаление правого поддерева было выполнено!\n\nДля перехода в меню нажмите любую клавишу..." << endl;
-	 _getch();
+	/* cout << "Успех! Удаление правого поддерева было выполнено!\n\nДля перехода в меню нажмите любую клавишу..." << endl;
+	 _getch();*/
  }
 
  void Tree::delTree() {
@@ -226,8 +225,7 @@ void Tree::add(string name, int y, int n) {
 	 Root = nullptr;
 	 delete Root;
 	 count--;
-	 cout << "Успех! Удаление бинарного дерева было выполнено!\n\nДля перехода в меню нажмите любую клавишу..." << endl;
-	 _getch();
+	 
  }
 
  void Tree::makeVectorFromTree(Node* n, vector<Node*>& m) {
@@ -247,10 +245,12 @@ void Tree::add(string name, int y, int n) {
 	 //mas.erase(mas.begin() + mas.size() / 2); // for rand
 	 for (int i = 0; i < mas.size(); i++)
 	 {
-		 tree.addByNum(mas[i]);
+		 tree.add_by_year(mas[i]);
 	 }
 	 delTree();
 	 *this = tree;
+
+	 cout << "Успех! Создание второго дерева было выполнено! Удаление прошлого дерева было произведенно!\n\nДля перехода в меню нажмите любую клавишу...";
  }
 
  void Tree::save(Node* n, string name) {

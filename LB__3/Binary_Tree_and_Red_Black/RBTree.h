@@ -11,12 +11,12 @@ enum RBTColor { Black, Red };
 
 struct  RBTNode
 {
-	int number, group;
+	int year, number;
 	string name;
 	RBTColor color;
 	RBTNode* left, * right, * parent;
-	RBTNode(int n, int g, string name, RBTColor c, RBTNode* p, RBTNode* l, RBTNode* r) :
-		number(n), group(g), name(name), color(c), parent(p), left(l), right(r) { };
+	RBTNode(int y, int n, string name, RBTColor c, RBTNode* p, RBTNode* l, RBTNode* r) :
+		year(y), number(n), name(name), color(c), parent(p), left(l), right(r) { };
 };
 
 class  RBTree
@@ -34,7 +34,7 @@ class  RBTree
 	void remove(RBTNode*& root, RBTNode* node);// Удалить узел как KEY
 	void removeFixUp(RBTNode*& root, RBTNode* node, RBTNode* parent);
 
-	RBTNode* search(RBTNode* node, int n, int g, string name) const;
+	RBTNode* search(RBTNode* node, int y, int n, string name) const;
 	void print(RBTNode* node)const;
 	//void printt(RBTNode* node);
 	void preOrder(RBTNode* tree)const;
@@ -45,9 +45,9 @@ public:
 	RBTree();
 	~RBTree();
 
-	void insert(int n, int g, string name);    // Вставляем узел, ключ это значение ключа, внешний интерфейс
-	void remove(int n, int g, string name); // Удалить ключевой узел
-	RBTNode* search(int n, int g, string name);
+	void insert(int y, int n, string name);    // Вставляем узел, ключ это значение ключа, внешний интерфейс
+	void remove(int y, int n, string name); // Удалить ключевой узел
+	RBTNode* search(int y, int n, string name);
 	void print();
 	void p();
 	void printt(RBTNode* n);
@@ -56,7 +56,9 @@ public:
 	void inOrder();    // Обход последовательности
 	void postOrder();    // пост-заказ обхода		
 
-	void makeRB(Tree t);
+	void makeRB();
+
+	bool check();
 };
 
 

@@ -8,22 +8,35 @@ RBTree::~RBTree() {        // Деструктор
 	destory(root);
 }
 
-void RBTree::insert(int n, int g, string name)     // вставка
-{
-	RBTNode* z = new RBTNode(n, g, name, Red, NULL, NULL, NULL);
-	insert(root, z);
-};
 
-void RBTree::remove(int n, int g, string name)
+bool RBTree::check() {
+	if (root == NULL) {
+		/*system("cls");
+		cout << "Ошибка! R/B дерево отсутствует!!!\n\nНажмите на Enter чтобы продолжить...";
+		_getch();*/
+		return false;
+	}
+	else {
+		return true;             //Если возврашает True, то мы можем пользоваться всем функционалом программы
+	}
+}
+
+void RBTree::insert(int y, int n, string name)     // вставка
 {
-	RBTNode* deletenode = search(root, n, g, name);
+	RBTNode* z = new RBTNode(y, n, name, Red, NULL, NULL, NULL);
+	insert(root, z);
+};	
+
+void RBTree::remove(int y, int n, string name)
+{
+	RBTNode* deletenode = search(root, y, n, name);
 	if (deletenode != NULL)
 		remove(root, deletenode);
 }
 
-RBTNode* RBTree::search(int n, int g, string name)
+RBTNode* RBTree::search(int y, int n, string name)
 {
-	return search(root, n, g, name);
+	return search(root, y, n, name);
 }
 
 void RBTree::print() {
@@ -47,13 +60,13 @@ void RBTree::printt(RBTNode* n) {
 		if (n->color == Red)
 		{
 			SetConsoleTextAttribute(hConsole, 4);
-			cout << n->number << " " << n->group << " " << n->name << endl;
+			cout << n->year << " " << n->number << " " << n->name << endl;
 			SetConsoleTextAttribute(hConsole, 7);
 		}
 		else
 		{
 			SetConsoleTextAttribute(hConsole, 7);
-			cout << n->number << " " << n->group << " " << n->name << endl;
+			cout << n->year << " " << n->number << " " << n->name << endl;
 		}
 		//cout << n->number << " " << n->group << " " << n->name << endl;
 		printt(n->left);
@@ -84,15 +97,16 @@ void RBTree::postOrder() {
 		postOrder(root);
 };
 
-void RBTree::makeRB(Tree t) {
+void RBTree::makeRB() {
 	//RBTree rb;
-
+	Tree t;
 	vector<Node*> mas;
 	t.makeVectorFromTree(t.Root, mas);
 	for (int i = 0; i < mas.size(); i++)
 	{
 		insert(mas[i]->year, mas[i]->num, mas[i]->name);
 	}
+
 
 }
 
@@ -393,15 +407,15 @@ void RBTree::removeFixUp(RBTNode*& root, RBTNode* node, RBTNode* parent)
 
 
 
-RBTNode* RBTree::search(RBTNode* node, int n, int g, string name) const
+RBTNode* RBTree::search(RBTNode* node, int y, int n, string name) const
 {
-	if (node == NULL || node->name == name && node->group == g && node->number == n)
+	if (node == NULL || node->name == name && node->number == n && node->year == y)
 		return node;
 	else
 		if (name > node->name)
-			return search(node->right, n, g, name);
+			return search(node->right, y, n, name);
 		else
-			return search(node->left, n, g, name);
+			return search(node->left, y, n, name);
 }
 // Вывод детальной информации о двоичном дереве
 
@@ -437,13 +451,13 @@ void RBTree::preOrder(RBTNode* tree)const {
 		if (tree->color == Red)
 		{
 			SetConsoleTextAttribute(hConsole, 4);
-			cout << tree->number << " " << tree->group << " " << tree->name << "  ";
+			cout << tree->year << " " << tree->number << " " << tree->name << "  ";
 			SetConsoleTextAttribute(hConsole, 7);
 		}
 		else
 		{
 			SetConsoleTextAttribute(hConsole, 7);
-			cout << tree->number << " " << tree->group << " " << tree->name << "  ";
+			cout << tree->year << " " << tree->number << " " << tree->name << "  ";
 		}
 		preOrder(tree->left);
 		preOrder(tree->right);
@@ -460,13 +474,13 @@ void RBTree::inOrder(RBTNode* tree)const {
 		if (tree->color == Red)
 		{
 			SetConsoleTextAttribute(hConsole, 4);
-			cout << tree->number << " " << tree->group << " " << tree->name << "  ";
+			cout << tree->year << " " << tree->number << " " << tree->name << "  ";
 			SetConsoleTextAttribute(hConsole, 7);
 		}
 		else
 		{
 			SetConsoleTextAttribute(hConsole, 7);
-			cout << tree->number << " " << tree->group << " " << tree->name << "  ";
+			cout << tree->year << " " << tree->number << " " << tree->name << "  ";
 		}
 		inOrder(tree->right);
 	}
@@ -483,13 +497,13 @@ void RBTree::postOrder(RBTNode* tree)const {
 		if (tree->color == Red)
 		{
 			SetConsoleTextAttribute(hConsole, 4);
-			cout << tree->number << " " << tree->group << " " << tree->name << "  ";
+			cout << tree->year << " " << tree->number << " " << tree->name << "  ";
 			SetConsoleTextAttribute(hConsole, 7);
 		}
 		else
 		{
 			SetConsoleTextAttribute(hConsole, 7);
-			cout << tree->number << " " << tree->group << " " << tree->name << "  ";
+			cout << tree->year << " " << tree->number << " " << tree->name << "  ";
 		}
 	}
 }

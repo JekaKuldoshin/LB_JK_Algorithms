@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <conio.h>        //_getch() 
+#include "RBTree.h"
 
 using namespace std;
 
@@ -22,8 +23,8 @@ public:
 	Tree();
 
 	void add(string name, int y, int n);
-	void addByNum(Node* node);
-	void addByN(string name, int num, int g);
+	void add_by_year(Node* node);
+	void add_by_y(string name, int y, int n);
 	void showForward(Node* n);
 	void showF(Node* n);
 	void showBackward(Node* n);
@@ -43,4 +44,6 @@ public:
 	void saveToFile(string name);
 	void read(Node* n, string name);
 	void readFromFile(string name);
+
+	bool check();
 };
