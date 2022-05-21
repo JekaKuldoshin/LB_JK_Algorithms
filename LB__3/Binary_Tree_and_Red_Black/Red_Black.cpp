@@ -1,9 +1,9 @@
 #include "RBTree.h"
 
-void RBTree::insert(int y, int k, string name)
+void RBTree::insert(int y, int k, string name)                  //\\//\\ Промежуточная функ-я добавления данных в R/B дерево //\\//\\ 
 {
 	RBData* z = new RBData(y, k, name, Red, NULL, NULL, NULL);
-	insert(root, z);
+	insert(root, z);                                           //Переход в функцию добавления
 };
 
 void RBTree::remove(int y, int k, string name)

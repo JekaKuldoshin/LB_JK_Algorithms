@@ -26,15 +26,12 @@ public:
 	void insert(int y, int k, string name);								   //Промежуточная функ-я добавления данных в R/B дерево
 	void remove(int y, int k, string name);                               //Функ-я удаление узла бинарного дерева R/B
 	RBData* search(int y, int k, string name);                           //Функ-я поиска элемента для дальнейшего удаления
-	/*void print();*/
+
 	void p() {                                                         //Промежуточная функ-я вывода
 		printt(root);												  //Переход в функцию
 	}
 	void printt(RBData* n);											//Функ-я вывода
 
-/*	void preOrder();
-	void inOrder();
-	void postOrder();  */
 	bool checkRB();												 //Функ-я проверки на пустоту бинарного R/B дерева
 	void makeRB(Tree t);									    //Функ-я раскраски дерева в R/B
 
