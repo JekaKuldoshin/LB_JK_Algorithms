@@ -1,78 +1,60 @@
 #pragma once
-#include <iostream>
-#include <iomanip>
-#include <string>
-#include <vector>
+#include <iomanip>           //Манипулятор для вывода
+#include <string>            
 #include "BinaryTree.h"
 
 using namespace std;
 
-enum RBTColor { Black, Red };
+enum RBTColor { Black, Red };    //Перечисление цветов
 
-struct  RBTNode
+struct  RBData
 {
-	int year, number;
+	int year, kol;
 	string name;
 	RBTColor color;
-	RBTNode* left, * right, * parent;
-	RBTNode(int y, int n, string name, RBTColor c, RBTNode* p, RBTNode* l, RBTNode* r) :
-		year(y), number(n), name(name), color(c), parent(p), left(l), right(r) { };
+	RBData* left, * right, * parent;
+	RBData(int y, int k, string name, RBTColor c, RBData* p, RBData* l, RBData* r) :
+		year(y), kol(k), name(name), color(c), parent(p), left(l), right(r) { };
 };
 
 class  RBTree
 {
-	RBTNode* root;
-	int tabs = 0;
-
-	void leftRotate(RBTNode*& root, RBTNode* x);// левая рука
-	void rightRotate(RBTNode*& root, RBTNode* y);// правая рука
-
-	void insert(RBTNode*& root, RBTNode* node);// Вставляем узел, внутренний интерфейс
-	void InsertFixUp(RBTNode*& root, RBTNode* node);
-	void destory(RBTNode*& node);
-
-	void remove(RBTNode*& root, RBTNode* node);// Удалить узел как KEY
-	void removeFixUp(RBTNode*& root, RBTNode* node, RBTNode* parent);
-
-	RBTNode* search(RBTNode* node, int y, int n, string name) const;
-	void print(RBTNode* node)const;
-	//void printt(RBTNode* node);
-	void preOrder(RBTNode* tree)const;
-	void inOrder(RBTNode* tree)const;
-	void postOrder(RBTNode* tree)const;
-	
 public:
-	RBTree();
-	~RBTree();
+	RBTree();																  //КсП
+	~RBTree();																 //КпоУ 
 
-	void insert(int y, int n, string name);    // Вставляем узел, ключ это значение ключа, внешний интерфейс
-	void remove(int y, int n, string name); // Удалить ключевой узел
-	RBTNode* search(int y, int n, string name);
-	void print();
-	void p();
-	void printt(RBTNode* n);
+	void insert(int y, int k, string name);								   //Промежуточная функ-я добавления данных в R/B дерево
+	void remove(int y, int k, string name);                               //Функ-я удаление узла бинарного дерева R/B
+	RBData* search(int y, int k, string name);                           //Функ-я поиска элемента для дальнейшего удаления
+	/*void print();*/
+	void p() {                                                         //Промежуточная функ-я вывода
+		printt(root);												  //Переход в функцию
+	}
+	void printt(RBData* n);											//Функ-я вывода
 
-	void preOrder();    // Предзаказ обхода печати красного черного дерева
-	void inOrder();    // Обход последовательности
-	void postOrder();    // пост-заказ обхода		
+/*	void preOrder();
+	void inOrder();
+	void postOrder();  */
+	bool checkRB();												 //Функ-я проверки на пустоту бинарного R/B дерева
+	void makeRB(Tree t);									    //Функ-я раскраски дерева в R/B
 
-	void makeRB();
+private:
+	void leftRotate(RBData*& root, RBData* x);               //Функ-я для перемещения влево
+	void rightRotate(RBData*& root, RBData* y);             //Функ-я для перемещения вправо
 
-	bool check();
+	void insert(RBData*& root, RBData* node);             //Функ-я добавления данных в R/B дерев 
+	void InsertFixUp(RBData*& root, RBData* node);
+
+	void destory(RBData*& node);                        //Функ-я удаления R/D дерева
+
+
+	void remove(RBData*& root, RBData* node);		 //Функ-я удаление узла бинарного дерева R/B
+	void removeFixUp(RBData*& root, RBData* node, RBData* parent);
+
+	RBData* search(RBData* node, int y, int k, string name) const;   //Функ-я поиска элемента для дальнейшего удаления
+
+private:
+	RBData* root;									//Переменная для работы с классом
+	int tabs = 0;								   //Переменная для подсчета пробелов
+	int  count;                                   //Переменная для подсчета кол-ва
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,56 +1,49 @@
 #include "RBTree.h"
 
-RBTree::RBTree() :root(NULL) {     //Конструктор
-	root = nullptr;
-}
-
-RBTree::~RBTree() {        // Деструктор
-	destory(root);
-}
-
-
-bool RBTree::check() {
-	if (root == NULL) {
-		/*system("cls");
-		cout << "Ошибка! R/B дерево отсутствует!!!\n\nНажмите на Enter чтобы продолжить...";
-		_getch();*/
-		return false;
-	}
-	else {
-		return true;             //Если возврашает True, то мы можем пользоваться всем функционалом программы
-	}
-}
-
-void RBTree::insert(int y, int n, string name)     // вставка
+void RBTree::insert(int y, int k, string name)
 {
-	RBTNode* z = new RBTNode(y, n, name, Red, NULL, NULL, NULL);
+	RBData* z = new RBData(y, k, name, Red, NULL, NULL, NULL);
 	insert(root, z);
-};	
+};
 
-void RBTree::remove(int y, int n, string name)
+void RBTree::remove(int y, int k, string name)
 {
-	RBTNode* deletenode = search(root, y, n, name);
+	RBData* deletenode = search(root, y, k, name);
 	if (deletenode != NULL)
 		remove(root, deletenode);
 }
 
-RBTNode* RBTree::search(int y, int n, string name)
+RBData* RBTree::search(int y, int k, string name)
 {
-	return search(root, y, n, name);
+	return search(root, y, k, name);
 }
 
-void RBTree::print() {
+void RBTree::makeRB(Tree t) {									   //Функ-я раскраски дерева в R/B
+
+	vector<Data*> mas;
+	t.makeVectorFromTree(t.Root, mas);
+	for (int i = 0; i < mas.size(); i++)
+	{
+		insert(mas[i]->year, mas[i]->kol, mas[i]->name);
+	}
+}
+
+
+bool RBTree::checkRB() {
 	if (root == NULL)
-		cout << "empty RBtree\n";
+	{
+		system("cls");
+		cout << "Ошибка! Бинарное дерево R/D отсутствует!!!\n\nНажмите на Enter чтобы продолжить...";
+		_getch();
+		return false;
+	}
 	else
-		print(root);
+	{
+		return true;             //Если возврашает True, то мы можем пользоваться всем функционалом программы
+	}
 }
 
-void RBTree::p() {
-	printt(root);
-}
-
-void RBTree::printt(RBTNode* n) {
+void RBTree::printt(RBData* n) {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	if (n != 0)
 	{
@@ -60,59 +53,31 @@ void RBTree::printt(RBTNode* n) {
 		if (n->color == Red)
 		{
 			SetConsoleTextAttribute(hConsole, 4);
-			cout << n->year << " " << n->number << " " << n->name << endl;
+			cout << n->year << " " << n->kol << " " << n->name << endl;
 			SetConsoleTextAttribute(hConsole, 7);
 		}
 		else
 		{
 			SetConsoleTextAttribute(hConsole, 7);
-			cout << n->year << " " << n->number << " " << n->name << endl;
+			cout << n->year << " " << n->kol << " " << n->name << endl;
 		}
 		//cout << n->number << " " << n->group << " " << n->name << endl;
 		printt(n->left);
 		tabs--;
 	}
-}
-
-void RBTree::preOrder() { // Предзаказ обхода дерева РБ
-	if (root == NULL)
-		cout << "empty RBtree\n";
-	else
-		preOrder(root);
-};
-
-// Обход дерева RB
-void RBTree::inOrder() {
-	if (root == NULL)
-		cout << "empty RBtree\n";
-	else
-		inOrder(root);
-};
-
-// После обхода дерева RB
-void RBTree::postOrder() {
-	if (root == NULL)
-		cout << "empty RBtree\n";
-	else
-		postOrder(root);
-};
-
-void RBTree::makeRB() {
-	//RBTree rb;
-	Tree t;
-	vector<Node*> mas;
-	t.makeVectorFromTree(t.Root, mas);
-	for (int i = 0; i < mas.size(); i++)
-	{
-		insert(mas[i]->year, mas[i]->num, mas[i]->name);
-	}
-
 
 }
 
-//Оставил
-void RBTree::leftRotate(RBTNode*& root, RBTNode* x) {
-	RBTNode* y = x->right;
+RBTree::RBTree() :root(NULL) {
+	root = nullptr;
+}
+// Деструктор
+RBTree::~RBTree() {
+	destory(root);
+}
+
+void RBTree::leftRotate(RBData*& root, RBData* x) {
+	RBData* y = x->right;
 	x->right = y->left;
 	if (y->left != NULL)
 		y->left->parent = x;
@@ -129,10 +94,9 @@ void RBTree::leftRotate(RBTNode*& root, RBTNode* x) {
 	y->left = x;
 	x->parent = y;
 };
-
 //Правая рука
-void RBTree::rightRotate(RBTNode*& root, RBTNode* y) {
-	RBTNode* x = y->left;
+void RBTree::rightRotate(RBData*& root, RBData* y) {
+	RBData* x = y->left;
 	y->left = x->right;
 	if (x->right != NULL)
 		x->right->parent = y;
@@ -150,10 +114,10 @@ void RBTree::rightRotate(RBTNode*& root, RBTNode* y) {
 	y->parent = x;
 };
 
-void RBTree::insert(RBTNode*& root, RBTNode* node)
+void RBTree::insert(RBData*& root, RBData* node)
 {
-	RBTNode* x = root;
-	RBTNode* y = NULL;
+	RBData* x = root;
+	RBData* y = NULL;
 	while (x != NULL)
 	{
 		y = x;
@@ -176,16 +140,16 @@ void RBTree::insert(RBTNode*& root, RBTNode* node)
 	InsertFixUp(root, node);
 };
 
-void RBTree::InsertFixUp(RBTNode*& root, RBTNode* node)
+void RBTree::InsertFixUp(RBData*& root, RBData* node)
 {
-	RBTNode* parent;
+	RBData* parent;
 	parent = node->parent;
 	while (node != RBTree::root && parent->color == Red)
 	{
-		RBTNode* gparent = parent->parent;
+		RBData* gparent = parent->parent;
 		if (gparent->left == parent)
 		{
-			RBTNode* uncle = gparent->right;
+			RBData* uncle = gparent->right;
 			if (uncle != NULL && uncle->color == Red)
 			{
 				parent->color = Black;
@@ -209,7 +173,7 @@ void RBTree::InsertFixUp(RBTNode*& root, RBTNode* node)
 		}
 		else
 		{
-			RBTNode* uncle = gparent->left;
+			RBData* uncle = gparent->left;
 			if (uncle != NULL && uncle->color == Red)
 			{
 				gparent->color = Red;
@@ -237,7 +201,7 @@ void RBTree::InsertFixUp(RBTNode*& root, RBTNode* node)
 }
 
 // Уничтожить красные и черные деревья
-void RBTree::destory(RBTNode*& node)
+void RBTree::destory(RBData*& node)
 {
 	if (node == NULL)
 		return;
@@ -247,14 +211,14 @@ void RBTree::destory(RBTNode*& node)
 	node = nullptr;
 }
 
-void RBTree::remove(RBTNode*& root, RBTNode* node)
+void RBTree::remove(RBData*& root, RBData* node)
 {
-	RBTNode* child, * parent;
+	RBData* child, * parent;
 	RBTColor color;
 	// Левый и правый узлы удаленного узла не пусты (не конечные узлы)
 	if (node->left != NULL && node->right != NULL)
 	{
-		RBTNode* replace = node;
+		RBData* replace = node;
 		// Найти узел-преемник (самый нижний левый узел правого поддерева текущего узла)
 		replace = node->right;
 		while (replace->left != NULL)
@@ -334,9 +298,9 @@ void RBTree::remove(RBTNode*& root, RBTNode* node)
 
 }
 
-void RBTree::removeFixUp(RBTNode*& root, RBTNode* node, RBTNode* parent)
+void RBTree::removeFixUp(RBData*& root, RBData* node, RBData* parent)
 {
-	RBTNode* othernode;
+	RBData* othernode;
 	while ((!node) || node->color == Black && node != RBTree::root)
 	{
 		if (parent->left == node)
@@ -404,106 +368,13 @@ void RBTree::removeFixUp(RBTNode*& root, RBTNode* node, RBTNode* parent)
 		node->color = Black;
 }
 
-
-
-
-RBTNode* RBTree::search(RBTNode* node, int y, int n, string name) const
+RBData* RBTree::search(RBData* node, int y, int k, string name) const
 {
-	if (node == NULL || node->name == name && node->number == n && node->year == y)
+	if (node == NULL || node->name == name && node->year == y && node->kol == k)
 		return node;
 	else
 		if (name > node->name)
-			return search(node->right, y, n, name);
+			return search(node->right, y, k, name);
 		else
-			return search(node->left, y, n, name);
-}
-// Вывод детальной информации о двоичном дереве
-
-
-/// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void RBTree::print(RBTNode* node)const {
-	if (node == NULL)
-		return;
-	if (node->parent == NULL)
-		cout << node->name << "(" << node->color << ") is root" << endl;
-	else if (node->parent->left == node)
-	{
-		cout << node->name << "(" << node->color << ") is " << node->parent->name << "'s " << "left child" << endl;
-	}
-	else
-	{
-		cout << node->name << "(" << node->color << ") is " << node->parent->name << "'s " << "right child" << endl;
-	}
-	print(node->left);
-	print(node->right);
-}
-
-
-
-
-
-/// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//ПРЯМОЙ
-void RBTree::preOrder(RBTNode* tree)const {
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	if (tree != NULL) {
-		//cout << tree->name << " ";
-		if (tree->color == Red)
-		{
-			SetConsoleTextAttribute(hConsole, 4);
-			cout << tree->year << " " << tree->number << " " << tree->name << "  ";
-			SetConsoleTextAttribute(hConsole, 7);
-		}
-		else
-		{
-			SetConsoleTextAttribute(hConsole, 7);
-			cout << tree->year << " " << tree->number << " " << tree->name << "  ";
-		}
-		preOrder(tree->left);
-		preOrder(tree->right);
-	}
-}
-
-
-//СИММЕТРИЧНЫЙ
-void RBTree::inOrder(RBTNode* tree)const {
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	if (tree != NULL) {
-		inOrder(tree->left);
-		//cout << tree->name << " ";
-		if (tree->color == Red)
-		{
-			SetConsoleTextAttribute(hConsole, 4);
-			cout << tree->year << " " << tree->number << " " << tree->name << "  ";
-			SetConsoleTextAttribute(hConsole, 7);
-		}
-		else
-		{
-			SetConsoleTextAttribute(hConsole, 7);
-			cout << tree->year << " " << tree->number << " " << tree->name << "  ";
-		}
-		inOrder(tree->right);
-	}
-}
-
-
-//ОБРАТНЫЙ
-void RBTree::postOrder(RBTNode* tree)const {
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	if (tree != NULL) {
-		postOrder(tree->left);
-		postOrder(tree->right);
-		//cout << tree->name << " ";
-		if (tree->color == Red)
-		{
-			SetConsoleTextAttribute(hConsole, 4);
-			cout << tree->year << " " << tree->number << " " << tree->name << "  ";
-			SetConsoleTextAttribute(hConsole, 7);
-		}
-		else
-		{
-			SetConsoleTextAttribute(hConsole, 7);
-			cout << tree->year << " " << tree->number << " " << tree->name << "  ";
-		}
-	}
+			return search(node->left, y, k, name);
 }

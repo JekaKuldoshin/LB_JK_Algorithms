@@ -1,32 +1,32 @@
-﻿#include "BinaryTree.h"
+﻿#include <iostream>
+#include "BinaryTree.h"
 #include "RBTree.h"
+
+using namespace std;
 
 int main()
 {
 	SetConsoleCP(1251);            //Руссификатор для ввода
 	SetConsoleOutputCP(1251);     //Руссификатор для вывода
 
-	Tree t;
+	Tree t;           //Локальная переменная для работы с классом
 	RBTree rb;
 
-	int menu;       //Переменные для меню
-	int year, num;
+	int year, num;         //Переменные для ввода
 	string name;
+
+	int menu;           //Для меню
 
 	while (true) {            // Цикл для меню
 		system("cls");
-		//t.show();
-		//cout << endl << endl;
-		//rb.p();
-
 		cout << "                                                          Меню                                                          |" << endl;
 		cout << "------------------------------------------------------------------------------------------------------------------------|" << endl;
 		cout << "1 - Создание / добавление элементов бинарного дерева       | 9 - Создание второго дерева, изменение ключевой переменной |" << endl;
 		cout << "2 - Вывод дерева...                                        | 10 - Добавить данные во второе дерево                      |" << endl;
 		cout << "3 - Печать при прямом обходе                               | 11 - Раскрасить дерево в R/B                               |" << endl;
 		cout << "4 - Печать при обратном обходе                             | 12 - Добавление данных в R/B дерево                        |" << endl;
-		cout << "5 - Печать при симетричном обходе                          | 13 - Удаление бинарного дерева R/B                         |" << endl;
-		cout << "6 - Удаление дерева                                        | 14 - Запись дерева в файл                                  |" << endl;
+		cout << "5 - Печать при симетричном обходе                          | 13 - Удаление узла бинарного дерева R/B                    |" << endl;
+		cout << "6 - Удаление дерева...                                     | 14 - Запись дерева в файл                                  |" << endl;
 		cout << "7 - Удаление левого поддерева и обнуление левой иголки     | 15 - Создание нового дерева из файла                       |" << endl;
 		cout << "8 - Удаление правого поддерева и обнуление правой иголки   |                                                            |" << endl;
 		cout << "------------------------------------------------------------------------------------------------------------------------|" << endl;
@@ -47,66 +47,113 @@ int main()
 			t.add(name, year, num);
 			system("cls");
 			t.show();
+			cout << "\n\nНажмите на Enter чтобы продолжить...";
+			_getch();
 			break;
 		case 2:
-			if (t.check() == true) {
-				system("cls");
-				cout << "Вывод дерева           |" << endl;
-				cout << "-----------------------|\n";
-				cout << "1 - Вывод бинарного    |"<<endl;
-				cout << "2 - Вывод R/B          |" << endl;
-				cout << "-----------------------|\n\n";
-				cout << "Сделайте свой выбор -> ";
-				cin >> menu;
-				switch (menu) {
-				case 1:
+
+			system("cls");
+			cout << "Вывод дерева           |" << endl;
+			cout << "-----------------------|\n";
+			cout << "1 - Вывод бинарного    |" << endl;
+			cout << "2 - Вывод R/B          |" << endl;
+			cout << "-----------------------|\n\n";
+			cout << "Сделайте свой выбор -> ";
+			cin >> menu;
+			switch (menu) {
+			case 1:
+				if (t.check() == true) {
 					system("cls");
+					cout << "Вывод бинарного дерева |" << endl;
+					cout << "-----------------------|\n";
 					t.show();
-					break;
-				case 2:
-					system("cls");
-					rb.p();
+					cout << "\n\nНажмите на Enter чтобы продолжить...";
 					_getch();
-					break;
-				default:
-					system("cls");
-					cout << "Ошибка!! Пункт меню отсутствует!!!\nДля перехода в меню нажмите любую клавишу... ";
-					_getch();
-					break;
 				}
+				break;
+			case 2:
+				system("cls");
+				if (rb.checkRB() == true) {
+					cout << "Вывод R/B дерева |" << endl;
+					cout << "-----------------|\n";
+					rb.p();
+					cout << "\n\nНажмите на Enter чтобы продолжить...";
+					_getch();
+				}
+				break;
+			default:
+				system("cls");
+				cout << "Ошибка!! Пункт меню отсутствует!!!\nДля перехода в меню нажмите любую клавишу... ";
+				_getch();
+				break;
 			}
 			break;
 		case 3:
 			if (t.check() == true) {
 				t.showPreOrder();
+				cout << endl;
 				t.show();
+				cout << "\n\nНажмите на Enter чтобы продолжить...";
+				_getch();
 			}
 			break;
 		case 4:
 			if (t.check() == true) {
 				t.showPostOrder();
+				cout << endl;
 				t.show();
+				cout << "\n\nНажмите на Enter чтобы продолжить...";
+				_getch();
 			}
 			break;
 		case 5:
 			if (t.check() == true) {
 				t.showSymm();
+				cout << endl;
 				t.show();
+				cout << "\n\nНажмите на Enter чтобы продолжить...";
+				_getch();
 			}
 			break;
 		case 6:
-			if (t.check() == true) {
-				t.delTree();
-				cout << "Успех! Удаление бинарного дерева было выполнено!\n\nДля перехода в меню нажмите любую клавишу...";
+			system("cls");
+			cout << "Удаление дерева        |" << endl;
+			cout << "-----------------------|\n";
+			cout << "1 - Удаление бинарного |" << endl;
+			cout << "2 - Удаление R/B       |" << endl;
+			cout << "-----------------------|\n\n";
+			cout << "Сделайте свой выбор -> ";
+			cin >> menu;
+			switch (menu) {
+			case 1:
+				if (t.check() == true) {
+					system("cls");
+					t.delTree();
+					cout << "Успех! Удаление бинарного дерева было выполнено!\n\nДля перехода в меню нажмите любую клавишу...";
+					_getch();
+				}
+				break;
+			case 2:
+				if (rb.checkRB() == true) {
+					system("cls");
+					rb.~RBTree();
+					cout << "Успех! Удаление R/B дерева было выполнено!\n\nДля перехода в меню нажмите любую клавишу...";
+					_getch();
+				}
+				break;
+			default:
+				system("cls");
+				cout << "Ошибка!! Пункт меню отсутствует!!!\nДля перехода в меню нажмите любую клавишу... ";
 				_getch();
+				break;
 			}
 			break;
 		case 7:
 			if (t.check() == true) {
 				system("cls");
 				t.delLeftTree();
-				 cout << "Успех! Удаление левого поддерева было выполнено!\n\nДля перехода в меню нажмите любую клавишу...";
-				 _getch();
+				cout << "Успех! Удаление левого поддерева было выполнено!\n\nДля перехода в меню нажмите любую клавишу...";
+				_getch();
 			}
 			break;
 		case 8:
@@ -119,51 +166,75 @@ int main()
 			break;
 		case 9:
 			if (t.check() == true) {
+				system("cls");
 				t.remake();
 				_getch();
 			}
 			break;
 		case 10:
 			if (t.check() == true) {
-					cout << "Введите название научного журнала - > "; cin >> name;
-					cout << "Введите год выпуска -> "; cin >> year;
-					cout << "Введите количество номеров -> "; cin >> num;
-					t.add_by_y(name, year, num);
-					_getch();
+				system("cls");
+				cout << "Добавить данные во второе дерево |" << endl;
+				cout << "---------------------------------|\n\n";
+				t.show();
+				cout << "\nВведите название научного журнала - > "; cin >> name;
+				cout << "Введите год выпуска -> "; cin >> year;
+				cout << "Введите количество номеров -> "; cin >> num;
+				t.add_by_y(name, year, num);
+				system("cls");
+				cout << "Успех! Добавление данных было выполнено!\n\nДля перехода в меню нажмите любую клавишу...";
+				_getch();
 			}
 			break;
 		case 11:
 			if (t.check() == true) {
-				rb.makeRB();
-				rb.p();
-			_getch();
+				system("cls");
+				rb.makeRB(t);
+				cout << "Успех! Раскраска дерева в R/B было выполнено!\n\nДля перехода в меню нажмите любую клавишу...";
+				_getch();
 			}
 			break;
 		case 12:
-			cout << "Введите название научного журнала - > "; cin >> name;
+			system("cls");
+			cout << "Добавление данных в R/B дерево |" << endl;
+			cout << "-------------------------------|\n\n";
+			rb.p();
+			cout << "\nВведите название научного журнала - > "; cin >> name;
 			cout << "Введите год выпуска -> "; cin >> year;
 			cout << "Введите количество номеров -> "; cin >> num;
 			rb.insert(year, num, name);
+			system("cls");
+			cout << "Успех! Добавление данных в R/B дерево было выполнено!\n\nДля перехода в меню нажмите любую клавишу...";
 			_getch();
 			break;
 		case 13:
-			cout << "Введите название научного журнала - > "; cin >> name;
-			cout << "Введите год выпуска -> "; cin >> year;
-			cout << "Введите количество номеров -> "; cin >> num;
-			rb.remove(year, num, name);
-			_getch();
+			if (rb.checkRB() == true) {
+				system("cls");
+				cout << "Удаление узла бинарного дерева R/B |" << endl;
+				cout << "-----------------------------------|\n\n";
+				rb.p();
+				cout << "\nВведите название научного журнала - > "; cin >> name;
+				cout << "Введите год выпуска -> "; cin >> year;
+				cout << "Введите количество номеров -> "; cin >> num;
+				rb.remove(year, num, name);
+				system("cls");
+				cout << "Успех! Удаление узла в R/B дереве было выполнено!\n\nДля перехода в меню нажмите любую клавишу...";
+				_getch();
+			}
 			break;
 		case 14:
 			if (t.check() == true) {
+				system("cls");
 				t.saveToFile("BinaryTree.txt");
-				cout << "Saved" << endl;
+				cout << "Успех! Данные были записаны в файл!\n\nДля перехода в меню нажмите любую клавишу...";
 				_getch();
 			}
 			break;
 		case 15:
-				t.readFromFile("BinaryTree.txt");
-				
-			
+			system("cls");
+			t.readFromFile("BinaryTree.txt");
+			cout << "Успех! Данные были записаны в бинарное дерево!\n\nДля перехода в меню нажмите любую клавишу...";
+			_getch();
 			break;
 		case 16:                  //\\ //\\ Выход //\\ //\\ 
 			system("cls");
