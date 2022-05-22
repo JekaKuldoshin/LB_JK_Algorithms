@@ -1,5 +1,13 @@
 #include "RBTree.h"
 
+RBTree::RBTree() :root(NULL) {      //\\//\\ КсП //\\//\\ 
+	root = nullptr;
+}
+
+RBTree::~RBTree() {       //\\//\\ КпоУ //\\//\\ 
+	destory(root);
+}
+
 void RBTree::insert(int y, int k, string name)                  //\\//\\ Промежуточная функ-я добавления данных в R/B дерево //\\//\\ 
 {
 	RBData* z = new RBData(y, k, name, Red, NULL, NULL, NULL);
@@ -13,12 +21,12 @@ void RBTree::remove(int y, int k, string name)
 		remove(root, deletenode);
 }
 
-RBData* RBTree::search(int y, int k, string name)
+RBData* RBTree::search(int y, int k, string name)           //\\//\\ Функ-я поиска элемента для дальнейшего удаления //\\//\\ 
 {
 	return search(root, y, k, name);
 }
 
-void RBTree::makeRB(Tree t) {									   //Функ-я раскраски дерева в R/B
+void RBTree::makeRB(Tree t) {			  //\\//\\ Функ-я раскраски дерева в R/B //\\//\\ 
 
 	vector<Data*> mas;
 	t.makeVectorFromTree(t.Root, mas);
@@ -29,7 +37,7 @@ void RBTree::makeRB(Tree t) {									   //Функ-я раскраски дерева в R/B
 }
 
 
-bool RBTree::checkRB() {
+bool RBTree::checkRB() {             //\\//\\ Функ-я проверки на пустоту бинарного R/B дерева //\\//\\ 
 	if (root == NULL)
 	{
 		system("cls");
@@ -43,104 +51,97 @@ bool RBTree::checkRB() {
 	}
 }
 
-void RBTree::printt(RBData* n) {
+void RBTree::printt(RBData* n) {                             //\\//\\ Функ-я вывода //\\//\\ 
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	if (n != 0)
+	if (n != 0)					//Пока не закончатся данные
 	{
-		tabs++;
-		printt(n->right);
-		for (int i = 0; i < tabs; i++) cout << "	";
-		if (n->color == Red)
+		tabs++;				    //Пробел
+		printt(n->right);      //Печатаем правую ветку
+		for (int i = 0; i < tabs; i++) cout << "	";    //Делаем определенное кол-во пробелов
+		if (n->color == Red)                             //Если цвет красный
 		{
-			SetConsoleTextAttribute(hConsole, 4);
-			cout << n->year << " " << n->kol << " " << n->name << endl;
-			SetConsoleTextAttribute(hConsole, 7);
+			SetConsoleTextAttribute(hConsole, 4);        //Выбираем красный цвет
+			cout << n->year << " " << n->kol << " " << n->name << endl;   //Выводим данные через пробел
+			SetConsoleTextAttribute(hConsole, 7);      //Выбираем светло-серый цвет
 		}
-		else
+		else      //Цвет другой -> Черный
 		{
-			SetConsoleTextAttribute(hConsole, 7);
-			cout << n->year << " " << n->kol << " " << n->name << endl;
+			SetConsoleTextAttribute(hConsole, 7);        //Выбираем светло-серый цвет
+			cout << n->year << " " << n->kol << " " << n->name << endl;    //Выводим данные через пробел
 		}
-		//cout << n->number << " " << n->group << " " << n->name << endl;
-		printt(n->left);
-		tabs--;
+		printt(n->left);      //Выводим левую ветку
+		tabs--;				 //Пробел
 	}
 
 }
 
-RBTree::RBTree() :root(NULL) {
-	root = nullptr;
-}
-// Деструктор
-RBTree::~RBTree() {
-	destory(root);
-}
 
-void RBTree::leftRotate(RBData*& root, RBData* x) {
-	RBData* y = x->right;
-	x->right = y->left;
-	if (y->left != NULL)
-		y->left->parent = x;
 
-	y->parent = x->parent;
-	if (x->parent == NULL)
-		root = y;
+void RBTree::leftRotate(RBData*& root, RBData* x) {      //\\//\\ Левая ветвь //\\//\\ 
+	RBData* y = x->right;                 //Создали указатель на данные
+	x->right = y->left;                  //Прировняли
+	if (y->left != NULL)                //Пока не обойдем все левые элементы
+		y->left->parent = x;           //Левый родитель приравниваем к Х
+
+	y->parent = x->parent;           //У прировняли с Х
+	if (x->parent == NULL)          //Если равняется нулю, то есть Бинарное дерево пустое
+		root = y;                  //Элемент становится корнем
 	else {
-		if (x == x->parent->left)
-			x->parent->left = y;
+		if (x == x->parent->left)      //Если Х равняется родителю Левого
+			x->parent->left = y;      //Родитель левого равняется У
 		else
-			x->parent->right = y;
+			x->parent->right = y;   //Родитель правого равняется У
 	}
 	y->left = x;
 	x->parent = y;
 };
-//Правая рука
-void RBTree::rightRotate(RBData*& root, RBData* y) {
-	RBData* x = y->left;
-	y->left = x->right;
-	if (x->right != NULL)
-		x->right->parent = y;
 
-	x->parent = y->parent;
-	if (y->parent == NULL)
-		root = x;
+void RBTree::rightRotate(RBData*& root, RBData* y) {         //\\//\\ Правая ветвь //\\//\\ 
+	RBData* x = y->left;                    //Создали указатель на данные
+	y->left = x->right;                    //Прировняли
+	if (x->right != NULL)                 //Пока не обойдем все правые элементы
+		x->right->parent = y;            //Правый родитель приравниваем к У
+
+	x->parent = y->parent;             //Х прировняли с У
+	if (y->parent == NULL)			  //Если равняется нулю, то есть Бинарное дерево пустое
+		root = x;				     //Элемент становится корнем
 	else {
-		if (y == y->parent->right)
-			y->parent->right = x;
+		if (y == y->parent->right)	    //Если У равняется родителю Правого
+			y->parent->right = x;      //Родитель правого равняется Х
 		else
-			y->parent->left = x;
+			y->parent->left = x;     //Родитель левого равняется Х
 	}
 	x->right = y;
 	y->parent = x;
 };
 
-void RBTree::insert(RBData*& root, RBData* node)
+void RBTree::insert(RBData*& root, RBData* node)           //\\//\\ Функ-я добавления данных в R/B дерев //\\//\\  
 {
-	RBData* x = root;
-	RBData* y = NULL;
-	while (x != NULL)
+	RBData* x = root;                         //Создали указатель на х = корень
+	RBData* y = NULL;                        //Создали указатель на У = 0
+	while (x != NULL)                       //Пока не закончатся данные
 	{
-		y = x;
-		if (node->name > x->name)
-			x = x->right;
-		else
-			x = x->left;
+		y = x;                            
+		if (node->name > x->name)         //Name1 > Name2
+			x = x->right;                //Вправо
+		else                            //Name1 < Name2
+			x = x->left;               //Влево
 	}
-	node->parent = y;
-	if (y != NULL)
+	node->parent = y;                //Родителем становится У
+	if (y != NULL)                  //Если не пусто
 	{
-		if (node->name > y->name)
-			y->right = node;
-		else
-			y->left = node;
+		if (node->name > y->name)       //Name1 > Name2
+			y->right = node;		   //Вправо
+		else                          //Name1 < Name2
+			y->left = node;          //Влево
 	}
-	else
-		root = node;
-	node->color = Red;
-	InsertFixUp(root, node);
+	else                        //Если пусто
+		root = node;           //Элемент становится корнем
+	node->color = Red;        //Цвет красный
+	InsertFixUp(root, node); //Передаем данные и цвет
 };
 
-void RBTree::InsertFixUp(RBData*& root, RBData* node)
+void RBTree::InsertFixUp(RBData*& root, RBData* node)            //\\//\\ Функ-я для выставления и раскраски R/B //\\//\\ 
 {
 	RBData* parent;
 	parent = node->parent;
@@ -200,8 +201,7 @@ void RBTree::InsertFixUp(RBData*& root, RBData* node)
 	root->color = Black;
 }
 
-// Уничтожить красные и черные деревья
-void RBTree::destory(RBData*& node)
+void RBTree::destory(RBData*& node)     //\\//\\ Удаление  R/B дерева, работает с деструктором //\\//\\ 
 {
 	if (node == NULL)
 		return;
@@ -211,7 +211,7 @@ void RBTree::destory(RBData*& node)
 	node = nullptr;
 }
 
-void RBTree::remove(RBData*& root, RBData* node)
+void RBTree::remove(RBData*& root, RBData* node)          //\\//\\ Функ-я удаление узла бинарного дерева R/B //\\//\\ 
 {
 	RBData* child, * parent;
 	RBTColor color;
