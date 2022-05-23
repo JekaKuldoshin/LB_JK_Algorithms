@@ -68,17 +68,18 @@ void heapify(int v[], int n, int i, int k)
 	int r = 2 * i + 2;
 	if (l < n && v[l] > v[maxim]) {
 		maxim = l;
-		k += 3;
+		k++;
 	}
 	if (r < n && v[r] > v[maxim]) {
 		maxim = r;
-		k += 3;
+		k++;
 	}
 	if (maxim != i)
 	{
 		swap(v[i], v[maxim]);
+		k++;
 		heapify(v, n, maxim, k);
-		k += 4;
+		k++;
 	}
 }
 void HeapSort(int v[], int n)
@@ -86,13 +87,14 @@ void HeapSort(int v[], int n)
 	long long k = 0;
 	for (int i = n / 2 - 1; i >= 0; i--) { 
 		heapify(v, n, i, k); 
-		k += 3;
+		k++;
 	}
 	for (int i = n - 1; i >= 0; i--)
 	{
 		swap(v[0], v[i]);
+		k++;
 		heapify(v, i, 0, k);
-		k += 3;
+		k++;
 	}
 	cout << "\nКол-во итераций = " << k << endl;
 }

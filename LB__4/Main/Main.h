@@ -1,16 +1,11 @@
 #pragma once
 #include<iostream>
-#include<chrono>
-#include <clocale>
 #include<conio.h>
 #include<iomanip>
-#include<algorithm>
 #include "windows.h"
 #include <time.h>
 
 using namespace std;
-
-//#define PRINT
 
 #define G 100000
 
