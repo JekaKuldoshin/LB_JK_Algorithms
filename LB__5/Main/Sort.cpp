@@ -79,6 +79,27 @@ void print_TAB_binary_search() {
 	cout << "        Бинарный поиск        |" << endl;
 	cout << "------------------------------|" << endl << endl;
 }
+//--------------------------------------
+void print_TAB_direct_search() {
+	cout << "------------------------------|" << endl;
+	cout << "        Прямой поиск          |" << endl;
+	cout << "------------------------------|" << endl;
+}
+void print_TAB_KMP_search() {
+	cout << "---------------------------------|" << endl;
+	cout << "  Алгоритм Кнута-Морриса-Пратта  |" << endl;
+	cout << "---------------------------------|" << endl << endl;
+}
+void print_TAB_BM_search() {
+	cout << "-----------------------------|" << endl;
+	cout << "    Алгоритм Бойера-Мура     |" << endl;
+	cout << "-----------------------------|" << endl << endl;
+}
+void print_TAB_RK_search() {
+	cout << "-----------------------------|" << endl;
+	cout << "   Алгоритм Рабина – Карпа   |" << endl;
+	cout << "-----------------------------|" << endl << endl;
+}
 
 //\\//\\//\\//\\//\\//\\//\\//\\//\\//\\
 //Печать массивов
@@ -288,3 +309,465 @@ void Fun_binary_search() {
 }
 
 //\\//\\//\\//\\//\\//\\//\\//\\//\\//\\
+Основные функции для поисков строк
+void Fun_STR_direct_search() {
+	int menu,result;
+	string s, s1;
+
+	link_menu:
+	system("cls");
+	//print_TAB_direct_search();
+	cout << "------------------------------|" << endl;
+	cout << "        Прямой поиск          |" << endl;
+	cout << "------------------------------|" << endl;
+	cout << " 1 - Заполнить с файла        |" << endl;
+	cout << " 2 - Заполнить вручную        |" << endl;
+	cout << "------------------------------|" << endl << endl;
+	cout << "Сделайте свой выбор -> ";
+	cin >> menu;
+	switch (menu) {
+	case 1:
+		s = from_the_file(s);
+		break;
+	case 2:
+		system("cls");
+		s = create_str(s);
+		break;
+	default:
+		system("cls");
+		cout << "Ошибка!! Пункт меню отсутствует!!!\nДля перехода в меню нажмите любую клавишу... " << endl;
+		_getch();
+		goto link_menu;
+		break;
+	}
+
+	system("cls");
+	print_TAB_direct_search();
+	cout <<"\n"<< s;
+
+	cout << "\n\nВведите данные для поиска -> ";
+	cin >> s1;
+
+	result = DirectSearch(s, s1);
+
+	if (result >= 0)
+		cout << "\n\nЭлемент найден под номером -> " << result;
+	else
+	{
+		system("cls");
+		cout << "Ошибка! Данные были не найдны!" << endl;
+	}
+
+	cout << "\n\n\nНажмите клавишу Enter чтобы продолжить...";
+	_getch();
+	system("cls");
+
+}
+void Fun_STR_KMP_search() {
+	int menu, result;
+	string s, s1;
+
+link_menu:
+	system("cls");
+	//print_TAB_direct_search();
+	cout << "-------------------------------|" << endl;
+	cout << " Алгоритм Кнута-Морриса-Пратта |" << endl;
+	cout << "-------------------------------|" << endl;
+	cout << " 1 - Заполнить с файла         |" << endl;
+	cout << " 2 - Заполнить вручную         |" << endl;
+	cout << "-------------------------------|" << endl << endl;
+	cout << "Сделайте свой выбор -> ";
+	cin >> menu;
+	switch (menu) {
+	case 1:
+		s = from_the_file(s);
+		break;
+	case 2:
+		system("cls");
+		s = create_str(s);
+		break;
+	default:
+		system("cls");
+		cout << "Ошибка!! Пункт меню отсутствует!!!\nДля перехода в меню нажмите любую клавишу... " << endl;
+		_getch();
+		goto link_menu;
+		break;
+	}
+
+	system("cls");
+	print_TAB_KMP_search();
+	cout << "\n" << s;
+
+	cout << "\n\nВведите данные для поиска -> ";
+	cin >> s1;
+
+	result = KMPSearch(s, s1);
+
+	if (result >= 0)
+		cout << "\n\nЭлемент найден под номером -> " << result;
+	else
+	{
+		system("cls");
+		cout << "Ошибка! Данные были не найдны!" << endl;
+	}
+
+	cout << "\n\n\nНажмите клавишу Enter чтобы продолжить...";
+	_getch();
+	system("cls");
+}
+void Fun_STR_BM_search() {
+	int menu, result;
+	string s, s1;
+
+link_menu:
+	system("cls");
+	//print_TAB_direct_search();
+	cout << "-------------------------------|" << endl;
+	cout << "      Алгоритм Бойера-Мура     |" << endl;
+	cout << "-------------------------------|" << endl;
+	cout << " 1 - Заполнить с файла         |" << endl;
+	cout << " 2 - Заполнить вручную         |" << endl;
+	cout << "-------------------------------|" << endl << endl;
+	cout << "Сделайте свой выбор -> ";
+	cin >> menu;
+	switch (menu) {
+	case 1:
+		s = from_the_file(s);
+		break;
+	case 2:
+		system("cls");
+		s = create_str(s);
+		break;
+	default:
+		system("cls");
+		cout << "Ошибка!! Пункт меню отсутствует!!!\nДля перехода в меню нажмите любую клавишу... " << endl;
+		_getch();
+		goto link_menu;
+		break;
+	}
+
+	system("cls");
+	print_TAB_BM_search();
+	cout << "\n" << s;
+
+	cout << "\n\nВведите данные для поиска -> ";
+	cin >> s1;
+
+	result = BMSearch(s, s1);
+	if (result >= 0)
+		cout << "\n\nЭлемент найден под номером -> " << result;
+	else
+	{
+		system("cls");
+		cout << "Ошибка! Данные были не найдны!" << endl;
+	}
+
+	cout << "\n\n\nНажмите клавишу Enter чтобы продолжить...";
+	_getch();
+	system("cls");
+}
+void Fun_STR_RK_search() {
+	int menu, result;
+	string s, s1;
+
+link_menu:
+	system("cls");
+
+	//print_TAB_direct_search();
+	cout << "-------------------------------|" << endl;
+	cout << "    Алгоритм Рабина – Карпа    |" << endl;
+	cout << "-------------------------------|" << endl;
+	cout << " 1 - Заполнить с файла         |" << endl;
+	cout << " 2 - Заполнить вручную         |" << endl;
+	cout << "-------------------------------|" << endl << endl;
+	cout << "Сделайте свой выбор -> ";
+	cin >> menu;
+	switch (menu) {
+	case 1:
+		s = from_the_file(s);
+		break;
+	case 2:
+		system("cls");
+		s = create_str(s);
+		break;
+	default:
+		system("cls");
+		cout << "Ошибка!! Пункт меню отсутствует!!!\nДля перехода в меню нажмите любую клавишу... " << endl;
+		_getch();
+		goto link_menu;
+		break;
+	}
+
+	system("cls");
+	print_TAB_RK_search();
+	cout << "\n" << s;
+
+	cout << "\n\nВведите данные для поиска -> ";
+	cin >> s1;
+
+    result = RKSearch(s1, s, 33);
+
+	if (result >= 0)
+		cout << "\n\nЭлемент найден под номером -> " << result;
+	else
+	{
+		system("cls");
+		cout << "Ошибка! Данные были не найдны!" << endl;
+	}
+
+	cout << "\n\n\nНажмите клавишу Enter чтобы продолжить...";
+	_getch();
+	system("cls");
+}
+
+//\\//\\//\\//\\//\\//\\//\\//\\//\\//\
+Функция создания строки
+string create_str(string s) {
+	int menu1;
+	system("cls");
+	print_TAB_direct_search();
+	cout << "Введите данные для строки -> ";
+	cin >> s;
+
+	system("cls");
+	cout << "Успех! Данные были заполнены!\n\nНажмите клавишу Enter чтобы продолжить...";
+	_getch();
+
+link_menu:
+	system("cls");
+	cout << "       Прямой поиск        |" << endl;
+	cout << "---------------------------|" << endl;
+	cout << "1 - Делать запись в файл?  |" << endl;
+	cout << "2 - Продолжить...          |" << endl;
+	cout << "---------------------------|" << endl;
+	cout << "Сделайте свой выбор -> ";
+	cin >> menu1;
+	switch (menu1) {
+	case 1:
+		in_file(s);
+		break;
+	case 2:
+		system("cls");
+		cout << "Успех! Данные были заполнены!\n\nНажмите клавишу Enter чтобы продолжить...";
+		_getch();
+		break;
+	default:
+		system("cls");
+		cout << "Ошибка!! Пункт меню отсутствует!!!\nДля перехода в меню нажмите любую клавишу... " << endl;
+		_getch();
+		goto link_menu;
+		break;
+	}
+	return s;
+}
+
+//\\//\\//\\//\\//\\//\\//\\//\\//\\//\
+Функция создания строк с файла
+string  from_the_file(string s) {
+	system("cls");
+	fstream f("Text.txt", ios::in);   //Переменная для работы с файлом, открыли файл
+	if (f.is_open()) {                  //Проверка на открытие файла
+		while (getline(f, s))
+		{
+			f >> s;
+		}
+	}
+	else {
+		cout << "Ошибка! Файл не найден!";
+	}
+	f.close();                 //Закрыли файл
+	system("cls");
+	cout << "Успех! Чтение с файла было выполнено!\n\nНажмите клавишу Enter чтобы продолжить...";
+	_getch();
+	return s;
+}
+
+//\\//\\//\\//\\//\\//\\//\\//\\//\\//\
+Функция записи строк в файл
+void in_file(string s) {
+
+	system("cls");
+	fstream f("Text.txt", ios::out);   //Переменная для работы с файлом, открыли файл
+	f.imbue(std::locale(""));
+	if (f.is_open()) {                  //Проверка на открытие файла
+			f << s;
+	}
+	else {
+		cout << "Ошибка! Файл не найден!";
+	}
+	f.close();                 //Закрыли файл
+	system("cls");
+	cout << "Успех! Запись в файл было выполнено!\n\nНажмите клавишу Enter чтобы продолжить...";
+	_getch();
+
+}
+
+//\\//\\//\\//\\//\\//\\//\\//\\//\\//\
+Логика поисков строк
+int DirectSearch(string& s, string key)
+{
+	int n, k, j;
+	int c = 0;
+	for (int i = 0; i < s.size(); i++) {
+		if (s[i] == key[0])
+		{
+			n = k = i;
+			j = 0;
+			c += 3;
+			while (s[k] == key[j])
+			{
+				k++;
+				j++;
+				if (j >= key.size()) {
+					cout << "\n\nКоличество переборов = " << c << endl;
+					return n;
+				}
+				c += 4;
+			}
+		}
+		c += 2;
+	}
+	return -1;
+}
+
+int KMPSearch(string& s, string key)
+{
+	int* P = new int[key.size()];
+	prefix(key, P);
+	int k,
+		l = 0;
+	int c = 0;
+	for (k = 0; k < s.size(); ) {
+		if (s[k] == key[l])
+		{
+			k++;
+			l++;
+			if (l == key.size()) {
+				cout << "\n\nКоличество переборов = " << c << endl;
+				return k - key.size();
+			}
+			c += 2;
+		}
+		else  if (l == 0)
+		{
+			k++;
+			if (k == s.size()) {
+				cout << "\n\nКоличество переборов = " << c << endl;
+				return -1;
+			}
+			c += 2;
+		}
+		else if (l != 0) {
+			l = P[l - 1];
+			c++;
+		}
+		c++;
+	}
+	return -1;
+}
+void prefix(string& s, int*& P)
+{
+	P[0] = 0;
+	int j = 0,
+		i;
+	for (i = 1; i < s.size();)
+		if (s[i] == s[j])
+		{
+			P[i] = j + 1;
+			i++;
+			j++;
+		}
+		else if (j == 0)
+		{
+			P[i] = 0;
+			i++;
+		}
+		else
+			j = P[j - 1];
+}
+
+int BMSearch(string txt, string pat) 
+{
+	int k = 256 * 2;
+	int m = pat.size();
+	int n = txt.size();
+	int badchar[NO_OF_CHARS];
+	badCharHeuristic(pat, m, badchar);
+	int s = 0;
+	while (s <= (n - m))
+	{
+		int j = m - 1;
+		k++;
+		while (j >= 0 && pat[j] == txt[s + j]) {
+			k++;
+			j--;
+		}
+		if (j < 0)
+		{
+			cout << "\n\nКоличество переборов = " << k << endl;
+			return s;
+			//s += (s + m < n) ? m - badchar[txt[s + m]] : 1;
+		}
+		else {
+			s += max(1, j - badchar[txt[s + j]]);
+			k++;
+		}
+		k++;
+	}
+	return -1;
+}
+void badCharHeuristic(string str, int size, int badchar[NO_OF_CHARS])
+{
+	int i;
+	for (i = 0; i < NO_OF_CHARS; i++)
+		badchar[i] = -1;
+	for (i = 0; i < size; i++)
+		badchar[(int)str[i]] = i;
+}
+
+int RKSearch(string s1, string text1, int inputBase) { //n, n, nm //+m
+	char s[10001];
+	strcpy_s(s, s1.c_str());
+	char text[10001];
+	strcpy_s(text, text1.c_str());
+	int patternLen = strlen(s);
+	int textLen = strlen(text);
+	int i, j, k = 0;
+	int patternHash = 0;
+	int textHash = 0;
+	int patternLenOut = 0;
+
+	for (i = 0; i < patternLen; i++) {
+		patternHash = (s[i]) % inputBase;
+		textHash = (text[i]) % inputBase;
+		k += 5;
+	}
+
+	for (i = 0; i <= textLen - patternLen; i++) {
+		if (patternHash == textHash) {
+			for (j = 0; j < patternLen; j++) {
+				if (text[i + j] != s[j])
+					break;
+				k += 2;
+			}
+
+			if (j == patternLen) {
+				cout << "\n\nКоличество переборов = " << k << endl;
+				return i;
+			}
+			k++;
+		}
+
+		if (i < textLen - patternLen) {
+			textHash = (text[i + patternLen]) % inputBase;
+			//k += 3;
+			if (textHash < 0) {
+				textHash = (textHash + inputBase);
+				//k+=3;
+			}
+			//k += 2;
+		}
+		k++;
+	}
+	return -1;
+	}

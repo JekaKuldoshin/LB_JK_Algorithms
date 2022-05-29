@@ -4,7 +4,6 @@ int main(void) {
 	SetConsoleCP(1251);            //Руссификатор для ввода
 	SetConsoleOutputCP(1251);     //Руссификатор для вывода
 
-	Data d;
 	int menu;       //Переменные для меню
 
 	while (true) {            // Цикл для меню
@@ -65,11 +64,12 @@ int main(void) {
 			system("cls");
 			cout << "                   Меню                 |" << endl;
 			cout << "----------------------------------------|" << endl;
-			cout << "1 - Линейный поиск                      |" << endl;
-			cout << "2 - Поиск барьером                      |" << endl;
-			cout << "3 - Сортировка данных + бинарный поиск  |" << endl;
+			cout << "1 - Прямой поиск подстроки              |" << endl;
+			cout << "2 - Алгоритм Кнута-Морриса-Пратта       |" << endl;
+			cout << "3 - Алгоритм Бойера-Мура                |" << endl;
+			cout << "4 - Алгоритм Рабина – Карпа             |" << endl;
 			cout << "----------------------------------------|" << endl;
-			cout << "     4 - Вернуться в главное меню       |" << endl;
+			cout << "     5 - Вернуться в главное меню       |" << endl;
 			cout << "----------------------------------------|" << endl;
 			cout << "Сделайте свой выбор -> ";
 			cin >> menu;
@@ -77,18 +77,21 @@ int main(void) {
 			switch (menu)
 			{
 			case 1:
-				/*Fun_line_search();*/
+				Fun_STR_direct_search();
 				break;
 
 			case 2:
-				/*Fun_barrier_search();*/
+				Fun_STR_KMP_search();
 				break;
 
 			case 3:
-				/*Fun_binary_search();*/
+				Fun_STR_BM_search();
 				break;
 
 			case 4:
+				Fun_STR_RK_search();
+				break;
+			case 5:
 				break;
 
 			default:
