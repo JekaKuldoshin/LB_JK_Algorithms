@@ -4,6 +4,8 @@
 #include "windows.h"
 #include <fstream>  
 #include <string>
+#include <time.h>
+#include<chrono>
 
 using namespace std;
 
@@ -15,6 +17,32 @@ struct Data {      //—труктура данных дл€ хранени€
 	int size,    
 		search;
 };
+
+class Timer
+{
+private:
+	// ѕсевдонимы типов используютс€ дл€ удобного доступа к вложенным типам
+	using clock_t = std::chrono::high_resolution_clock;
+	using second_t = std::chrono::duration<double, std::ratio<1> >;
+
+	std::chrono::time_point<clock_t> m_beg;
+
+public:
+	Timer() : m_beg(clock_t::now())
+	{
+	}
+
+	void reset()
+	{
+		m_beg = clock_t::now();
+	}
+
+	double elapsed() const
+	{
+		return std::chrono::duration_cast<second_t>(clock_t::now() - m_beg).count();
+	}
+};
+
 
 void create_mas_Rand(int size, int A[]);                            //‘унк-€ создани€ рандомного масива
 void create_mas_Up(int size, int A[]);							   //‘унк-€ создани€ упор€доченного масива

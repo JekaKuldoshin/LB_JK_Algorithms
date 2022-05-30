@@ -172,6 +172,9 @@ void Fun_line_search() {
 	Data d;
 	int result;
 
+	cout.setf(ios::fixed);
+	cout.precision(6);
+
 	system("cls");
 
 	print_TAB_line_search();
@@ -198,9 +201,15 @@ void Fun_line_search() {
 	print_TAB_line_search();
 	print_mas_old(d.size, A1);
 	cout << "\nЁлемент дл€ поиска в массиве -> " << d.search << endl;
+
 	result = LinearSearch(A1, d);
-	if (result >= 0)
+	if (result >= 0) {
+		Timer t1;
+		cout << endl;
+		double time1 = t1.elapsed();
 		cout << "\n\nЁлемент найден под номером -> " << result;
+		cout << "\n¬рем€ выполнение  ->  " << time1 << '\n';
+	}
 	else
 	{
 		system("cls");
@@ -245,8 +254,13 @@ void Fun_barrier_search() {
 	print_mas_old(d.size, A1);
 	cout << "\nЁлемент дл€ поиска в массиве -> " << d.search << endl;
 	result = BarrierSearch(A1, d);
-	if (result >= 0)
-		cout << "\n\nЁлемент найден под номером -> " << result;
+	if (result >= 0) {
+	Timer t1;
+	cout << endl;
+	double time1 = t1.elapsed();
+	cout << "\n\nЁлемент найден под номером -> " << result;
+	cout << "\n¬рем€ выполнение  ->  " << time1 << '\n';
+	}
 	else
 	{
 		system("cls");
@@ -292,8 +306,14 @@ void Fun_binary_search() {
 	cout << "\nЁлемент дл€ поиска в массиве -> " << d.search << endl;
 	result = BinarySearch(A1, d);
 	print_mas_new(d.size, A1);
-	if (result >= 0)
+	if (result >= 0) {
+		Timer t1;
+		cout << endl;
+		double time1 =
+			t1.elapsed();
 		cout << "\n\nЁлемент найден под номером -> " << result;
+		cout << "\n¬рем€ выполнение  ->  " << time1 << '\n';
+	}
 	else
 	{
 		system("cls");
@@ -350,8 +370,13 @@ void Fun_STR_direct_search() {
 
 	result = DirectSearch(s, s1);
 
-	if (result >= 0)
+	if (result >= 0) {
+		Timer t1;
+		cout << endl;
+		double time1 = t1.elapsed();
 		cout << "\n\nЁлемент найден под номером -> " << result;
+		cout << "\n¬рем€ выполнение  ->  " << time1 << '\n';
+	}
 	else
 	{
 		system("cls");
@@ -403,8 +428,13 @@ link_menu:
 
 	result = KMPSearch(s, s1);
 
-	if (result >= 0)
+	if (result >= 0) {
+		Timer t1;
+		cout << endl;
+		double time1 = t1.elapsed();
 		cout << "\n\nЁлемент найден под номером -> " << result;
+		cout << "\n¬рем€ выполнение  ->  " << time1 << '\n';
+	}
 	else
 	{
 		system("cls");
@@ -454,8 +484,13 @@ link_menu:
 	cin >> s1;
 
 	result = BMSearch(s, s1);
-	if (result >= 0)
+	if (result >= 0) {
+		Timer t1;
+		cout << endl;
+		double time1 = t1.elapsed();
 		cout << "\n\nЁлемент найден под номером -> " << result;
+		cout << "\n¬рем€ выполнение  ->  " << time1 << '\n';
+	}
 	else
 	{
 		system("cls");
@@ -507,8 +542,13 @@ link_menu:
 
     result = RKSearch(s1, s, 33);
 
-	if (result >= 0)
+	if (result >= 0) {
+		Timer t1;
+		cout << endl;
+		double time1 = t1.elapsed();
 		cout << "\n\nЁлемент найден под номером -> " << result;
+		cout << "\n¬рем€ выполнение  ->  " << time1 << '\n';
+	}
 	else
 	{
 		system("cls");
