@@ -4,6 +4,7 @@
 void QuadraticHashTable::insert(int data) {
 	for (int i = 0; i < length; i++) {
 		int hash = (data % length + 1 * i + 3 * i * i) % length;
+		//int hash = /*(data % length + 1 * i + 3 * i * i)*/ data % length;
 		if (!arr[hash].contains) {
 			arr[hash].data = data;
 			arr[hash].key = hash;

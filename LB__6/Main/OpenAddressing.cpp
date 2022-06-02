@@ -59,6 +59,7 @@ void OpenHashTable::Search(int key) {
 	}
 
 }
+
 void OpenHashTable::Delete(int key) {
 	int flag = 0;
 

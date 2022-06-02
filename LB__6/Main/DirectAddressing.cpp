@@ -1,10 +1,12 @@
 #pragma once
 #include "DirectAddressing.h"
 
-int DirectHashTable::hashCode(double k) {
+int DirectHashTable::hashCode(int k) {
 	double a = (sqrt(5) - 1) / 2;
 	double c = (k * a);
 	return fmod(c, 1) * length;
+
+	//return k % length;
 }
 
 void DirectHashTable::insert(int data) {
@@ -127,6 +129,7 @@ void DirectHashTable::Delete(int data) {
 
 void  DirectHashTable::from_file() {
 	ifstream in;
+	//in.open("DirectHash.txt");
 	in.open("HashTable.txt");
 	if (in.fail()) cout << "ERROR opening file";
 	int d;

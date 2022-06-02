@@ -209,6 +209,7 @@ int main(void) {
 						goto link_menu3;
 						break;
 					case 3:
+						goto link_menu3;
 						break;
 					default:
 						system("cls");

@@ -36,7 +36,7 @@ public:
 		arr = new Data_direct[length];
 	}
 
-	int hashCode(double);
+	int hashCode(int);
 	void insert(int);
 	void Check();
 	void Resize();
